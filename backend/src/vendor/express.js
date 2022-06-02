@@ -13,8 +13,8 @@ export default function express({ substore: $, port, host }) {
 
     // node support
     if (isNode) {
-        const express_ = eval(`require("express")`);
-        const bodyParser = eval(`require("body-parser")`);
+        const express_ = require('express');
+        const bodyParser = require('body-parser');
         const app = express_();
         app.use(bodyParser.json({ verify: rawBodySaver }));
         app.use(

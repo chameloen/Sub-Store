@@ -1,5 +1,6 @@
 export const SETTINGS_KEY = 'settings';
 export const SUBS_KEY = 'subs';
+export const RULES_KEY = 'rules';
 export const COLLECTIONS_KEY = 'collections';
 export const ARTIFACTS_KEY = 'artifacts';
 export const GIST_BACKUP_KEY = 'Auto Generated Sub-Store Backup';

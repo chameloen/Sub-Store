@@ -1203,7 +1203,7 @@ const PROXY_PROCESSORS = (function () {
                     // eslint-disable-next-line no-unused-vars
                     const $process = ApplyProcessor;
 
-                    eval(script);
+                    (0, eval)(script)
 
                     // eslint-disable-next-line no-undef
                     output = operator(proxies, targetPlatform);
@@ -1311,7 +1311,7 @@ const PROXY_PROCESSORS = (function () {
             func: (proxies) => {
                 let output = FULL(proxies.length, true);
                 !(function () {
-                    eval(script);
+                    (0, eval)(script);
                     // eslint-disable-next-line no-undef
                     output = filter(proxies, targetPlatform);
                 })();
