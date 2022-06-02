@@ -29,12 +29,7 @@ jobs:
         working-directory: backend
       - name: Build
         if: success()
-        run: npm run build:server -- --minify
-        working-directory: backend
-      - name: Package
-        if: success()
-        # run: npm run package:server -- -t node${{ matrix.node-version }}-${{ matrix.os }}-${{ matrix.arch }} -o out/sub-store_${{ matrix.os }}-${{ matrix.arch }}
-        run: npm run package:server && mv sub-store.min.js sub-store.${{ matrix.os }}-${{ matrix.arch }}.min.js
+        run: npm run build:server && mv sub-store.min.js sub-store.${{ matrix.os }}-${{ matrix.arch }}.min.js
         working-directory: backend
 
       - name: Tag Repo
