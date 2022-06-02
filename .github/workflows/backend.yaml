@@ -29,7 +29,7 @@ jobs:
         working-directory: backend
       - name: Build
         if: success()
-        run: npm run build:server && mv sub-store.min.js sub-store.${{ matrix.os }}-${{ matrix.arch }}.min.js
+        run: npm run build:server && mv sub-store.min.js sub-store.node${{ matrix.node-version }}-${{ matrix.os }}-${{ matrix.arch }}-alpha.min.js
         working-directory: backend
 
       - name: Tag Repo
@@ -45,6 +45,6 @@ jobs:
         with:
           tag: Alpha
           tag_name: Prerelease-Alpha
-          files: backend/sub-store.${{ matrix.os }}-${{ matrix.arch }}.min.js
+          files: backend/sub-store.node${{ matrix.node-version }}-${{ matrix.os }}-${{ matrix.arch }}-alpha.min.js
           prerelease: true
           generate_release_notes: true
