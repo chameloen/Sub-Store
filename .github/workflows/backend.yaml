@@ -1,0 +1,57 @@
+name: Deploy Backend
+
+on: [push]
+
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: backend
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      if: success()
+      with:
+        node-version: 14
+        cache: 'npm'
+        # cache-dependency-path: '**/package-lock.json'
+    - uses: actions/upload-artifact@master
+      with:
+        name: out
+        path: backend/out
+    - name: Install
+      if: success()
+      run: npm ci
+    - name: Build
+      if: success()
+      run: npm run build:server
+  
+  package:
+    if: success()
+    needs: build
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        arch:
+          - x64
+          - arm64
+        node-version:
+          - node14
+        os:
+          - linux
+          - macos
+          - win
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: out
+          path: out
+      - name: Package into node binary
+        uses: lando/pkg-action@v2
+        with:
+          entrypoint: sub-store.js
+          arch: ${{ matrix.arch }}
+          node-version: ${{ matrix.node-version }}
+          os: ${{ matrix.os }}
