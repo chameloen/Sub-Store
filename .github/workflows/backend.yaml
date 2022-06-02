@@ -33,7 +33,7 @@ jobs:
         working-directory: backend
       - name: Package
         if: success()
-        run: npm run package:server -- -o out/sub-store_${{ matrix.os }}_${{ matrix.node-version }}
+        run: npm run package:server -- -o out/sub-store_${{ matrix.os }}-${{ matrix.arch }}
         working-directory: backend
 
       - name: Tag Repo
