@@ -9,7 +9,7 @@
     "start": "nodemon --exec node_modules/.bin/babel-node src/main.js",
     "build": "gulp",
     "build:server": "esbuild src/main.js --bundle --platform=node --outfile=out/sub-store.js",
-    "package:server": "pkg out/sub-store.js"
+    "package:server": "caxa --input 'out' --output 'out/sub-store' -- '{{caxa}}/node_modules/.bin/node' '{{caxa}}/sub-store.js'"
   },
   "author": "Peng-YM",
   "license": "GPL",
@@ -30,6 +30,7 @@
     "babelify": "^10.0.0",
     "browser-pack-flat": "^3.4.2",
     "browserify": "^17.0.0",
+    "caxa": "^2.1.0",
     "esbuild": "^0.14.42",
     "eslint": "^8.16.0",
     "gulp": "^4.0.2",
@@ -38,7 +39,6 @@
     "gulp-header": "^2.0.9",
     "gulp-prettier": "^4.0.0",
     "nodemon": "^2.0.16",
-    "pkg": "^5.7.0",
     "prettier": "2.6.2",
     "prettier-plugin-sort-imports": "^1.6.1",
     "tinyify": "^3.0.0"

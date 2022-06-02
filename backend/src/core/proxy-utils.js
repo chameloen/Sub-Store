@@ -1954,7 +1954,7 @@ export async function ApplyProcessor(processor, objs) {
         // select proxies
         let selected = FULL(objs.length, true);
         try {
-            selected = AND(selected, filter.func(objs));
+            selected = AND(selected, await filter.func(objs));
         } catch (err) {
             // print log and skip this filter
             console.log(`Cannot apply filter ${filter.name}\n Reason: ${err}`);
@@ -1965,7 +1965,7 @@ export async function ApplyProcessor(processor, objs) {
     async function ApplyOperator(operator, objs) {
         let output = clone(objs);
         try {
-            const output_ = operator.func(output);
+            const output_ =  operator.func(output);
             if (output_) output = output_;
         } catch (err) {
             // print log and skip this operator
