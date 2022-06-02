@@ -8,8 +8,8 @@
     "serve": "node sub-store.min.js",
     "start": "nodemon --exec node_modules/.bin/babel-node src/main.js",
     "build": "gulp",
-    "build:server": "esbuild src/main.js --bundle --outfile=out/sub-store.js --platform=node",
-    "package:server": "pkg out/sub-store.js --out-path out"
+    "build:server": "esbuild src/main.js --bundle --platform=node --outfile=out/sub-store.js",
+    "package:server": "pkg out/sub-store.js"
   },
   "author": "Peng-YM",
   "license": "GPL",
