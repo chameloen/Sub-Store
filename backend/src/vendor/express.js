@@ -28,7 +28,7 @@ export default function express({ substore: $, port, host }) {
 
         // adapter
         app.start = () => {
-            const server = app.listen(port || 3000, host || '0.0.0.0', () => {
+            const server = app.listen(port || 3000, host || '127.0.0.1', () => {
                 const { address, port } = server.address();
                 $.info(`Express started on: ${address}:${port}`);
             });
