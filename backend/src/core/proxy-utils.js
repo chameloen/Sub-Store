@@ -1,10 +1,13 @@
 /* eslint-disable no-case-declarations */
+// eslint-disable-next-line no-unused-vars
+import { AND, FULL, OR, NOT } from '../utils/logical';
 import { safeLoad } from 'static-js-yaml';
-import { Base64 } from 'js-base64';
-
-import { AND, FULL } from '../utils/logical';
 import download from '../utils/download';
 import { getFlag } from '../utils/geo';
+import { Base64 } from 'js-base64';
+import bluebird from 'bluebird'
+import _ from 'lodash'
+import { HTTP } from '../vendor/open-api';
 
 import $ from './app';
 
@@ -1203,7 +1206,20 @@ const PROXY_PROCESSORS = (function () {
                     // eslint-disable-next-line no-unused-vars
                     const $process = ApplyProcessor;
 
-                    (0, eval)(script)
+                    const operator = new Function(
+                        'exports',
+                        'require',
+                        'module',
+                        '__filename',
+                        '__dirname',
+                        '$arguments',
+                        '$',
+                        'HTTP',
+                        '_',
+                        'bluebird',
+                        `${script}\nreturn operator`,
+                        // eslint-disable-next-line no-undef
+                        )(exports, require, module, __filename, __dirname, $arguments, $, HTTP, _, bluebird);
 
                     // eslint-disable-next-line no-undef
                     output = operator(proxies, targetPlatform);
@@ -1295,11 +1311,13 @@ const PROXY_PROCESSORS = (function () {
 
     /**
      Script Example
+
      function filter(proxies) {
-            const selected = FULL(proxies.length, true);
-            // do something
-            return selected;
-         }
+        return proxies.map(p => {
+            return p.name.indexOf("🇭🇰") !== -1;
+        });
+     }
+
      WARNING:
      1. This function name should be `filter`!
      2. Always declare variables before using them!
@@ -1310,8 +1328,23 @@ const PROXY_PROCESSORS = (function () {
             name: 'Script Filter',
             func: async (proxies) => {
                 let output = FULL(proxies.length, true);
+
                 await (async function () {
-                    (0, eval)(script);
+                     const filter = new Function(
+                        'exports',
+                        'require',
+                        'module',
+                        '__filename',
+                        '__dirname',
+                        '$arguments',
+                        '$',
+                        'HTTP',
+                        '_',
+                        'bluebird',
+                        `${script}\nreturn filter`,
+                        // eslint-disable-next-line no-undef
+                        )(exports, require, module, __filename, __dirname, $arguments, $, HTTP, _, bluebird);
+
                     // eslint-disable-next-line no-undef
                     output = filter(proxies, targetPlatform);
                 })();
@@ -1965,7 +1998,7 @@ export async function ApplyProcessor(processor, objs) {
     async function ApplyOperator(operator, objs) {
         let output = clone(objs);
         try {
-            const output_ =  operator.func(output);
+            const output_ = await operator.func(output);
             if (output_) output = output_;
         } catch (err) {
             // print log and skip this operator

@@ -1,5 +1,4 @@
 function AND(...args) {
-    console.log(args)
     return args.reduce((a, b) => a.map((c, i) => b[i] && c));
 }
 
