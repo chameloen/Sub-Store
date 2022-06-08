@@ -16,11 +16,15 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
+    "crypto-js": "^4.0.0",
     "express": "^4.17.1",
+    "got": "^11.5.1",
+    "iconv-lite": "0.6.3",
     "js-base64": "^3.7.2",
     "lodash": "^4.17.21",
     "request": "^2.88.2",
-    "static-js-yaml": "^1.0.0"
+    "static-js-yaml": "^1.0.0",
+    "tough-cookie": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.0",
@@ -32,7 +36,6 @@
     "babelify": "^10.0.0",
     "browser-pack-flat": "^3.4.2",
     "browserify": "^17.0.0",
-    "esbuild": "^0.14.42",
     "eslint": "^8.16.0",
     "estrella": "^1.4.1",
     "gulp": "^4.0.2",
@@ -41,7 +44,6 @@
     "gulp-header": "^2.0.9",
     "gulp-prettier": "^4.0.0",
     "nodemon": "^2.0.16",
-    "pkg": "^5.7.0",
     "prettier": "2.6.2",
     "prettier-plugin-sort-imports": "^1.6.1",
     "tinyify": "^3.0.0"

@@ -6,15 +6,19 @@ export default async function download(url, ua) {
     ua = ua || 'Quantumult%20X/1.0.29 (iPhone14,5; iOS 15.4.1)';
     const id = ua + url;
     if (cache.has(id)) {
-        const [data, timestamp] = cache.get(id)
-        const diff = (Date.now() - timestamp) / 1000 / 60
+        const [data, timestamp] = cache.get(id);
+        const diff = (Date.now() - timestamp) / 1000 / 60;
         if (diff <= 30) {
-            console.log(`✅ cache expire in ${Math.round(30 - diff)} min(s): ${url} ${ua}`)
-            return data
+            console.log(
+                `✅ cache expire in ${Math.round(
+                    30 - diff,
+                )} min(s): ${url} ${ua}`,
+            );
+            return data;
         }
-        console.log(`❌ cache expire: ${url} ${ua}`)
+        console.log(`❌ cache expire: ${url} ${ua}`);
     } else {
-        console.log(`❌ cache miss: ${url} ${ua}`)
+        console.log(`❌ cache miss: ${url} ${ua}`);
     }
 
     const http = HTTP({

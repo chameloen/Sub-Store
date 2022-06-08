@@ -264,7 +264,9 @@ export function HTTP(defaultOptions = { baseURL: '' }) {
             });
         } else if (isLoon || isSurge || isNode) {
             worker = new Promise((resolve, reject) => {
-                const request = isNode ? require('request') : $httpClient;
+                const request = isNode
+                    ? require('request')
+                    : $httpClient;
                 request[method.toLowerCase()](
                     options,
                     (err, response, body) => {
