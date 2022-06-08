@@ -2,7 +2,7 @@
 const isQX = typeof $task !== 'undefined';
 const isLoon = typeof $loon !== 'undefined';
 const isSurge = typeof $httpClient !== 'undefined' && !isLoon;
-const isNode = 'undefined' !== typeof module && !!module.exports
+const isNode = 'undefined' !== typeof module && !!module.exports;
 
 export class OpenAPI {
     constructor(name = 'untitled', debug = false) {
@@ -264,7 +264,9 @@ export function HTTP(defaultOptions = { baseURL: '' }) {
             });
         } else if (isLoon || isSurge || isNode) {
             worker = new Promise((resolve, reject) => {
-                const request = isNode ? require('request') : $httpClient;
+                const request = isNode
+                    ? require('request')
+                    : $httpClient;
                 request[method.toLowerCase()](
                     options,
                     (err, response, body) => {
